@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+<meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+
+<title>Agxius | Dashboard</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!--    <link rel="shortcut icon" type="image/png" href="">-->
+    <link rel="icon" href="{% static 'ampius-logo.png' %}">
+    <link rel="stylesheet" href="{% static 'dash.css' %}">
+
+
+</head>
+<body>
+
+
+<div id="map"></div>
+
+            <div class="body-content">
+  <div class="left-menu">
+    <a href="/profile/" > <button type="button" class="btn-animate"  value="Submit"> +Add</button></a>
+  </div>
+
+
+    <div class="right-view">
+      <a href="/logout/" > <button type="button" class="btn-logout"  value="Submit"> LOGOUT</button></a>
+    </div>
+  </div>
+<div id="features">
+
+    <section id="{{record1.field_id}}" class="active">
+        <h3>{{record1.field_id}}</h3><br><br>
+        <p>
+            {{record1.commodity}}<br><br>
+            {{record1.sowing_date}}<br><br>
+            {{record1.username}}<br><br>
+            {{record1.area}}<br><br>
+        </p>
+        <div class="piechart"></div>
+
+        <div id="demo" class="md-dateslider">
+
+    <div class="mbsc-form-group-inset">
+        <label>
+            <input mbsc-slider id="slider" type="range" value="0" mobiscroll-slider="sliderSettings" data-step-labels="[0, 16.66, 33.32, 50, 66.64, 83.3, 100]" step="16.66" data-highlight="false" />
+        </label>
+    </div>
+    <div class="mbsc-padding">
+
+    </section>
+
+    {% for i in records%}
+
+
+    <section id="{{i.field_id}}">
+        <h3>{{i.field_id}}</h3><br><br>
+        <p>
+            {{i.commodity}}<br><br>
+            {{i.sowing_date}}<br><br>
+            {{i.username}}<br><br>
+            {{i.area}}<br><br>
+        </p>
+        <div class="piechart"></div>
+
+        <div id="demo" class="md-dateslider">
+
+    <div class="mbsc-form-group-inset">
+        <label>
+            <input mbsc-slider id="slider" type="range" value="0" mobiscroll-slider="sliderSettings" data-step-labels="[0, 16.66, 33.32, 50, 66.64, 83.3, 100]" step="16.66" data-highlight="false" />
+        </label>
+    </div>
+
+
+</div>
+    </section>
+
+    {% endfor %}
+</div>
+
+<script>
+    var dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    d = new Date(),
+    diff = d.getDate() - d.getDay(),
+    nextSunday = new Date(d.setDate(diff + 7)),
+    slider = document.getElementById('slider'),
+    nextWeek = {};
+
+function setText(d) {
+    document.querySelector('.md-date').innerHTML = monthNames[d.getMonth()] + " " + d.getDate();
+}
+
+slider
+    .addEventListener('change', function (ev) {
+        setText(nextWeek[Math.round(this.value)]);
+    });
+
+
+mobiscroll.form('#demo', {
+    theme: 'ios',
+    themeVariant: 'light'
+});
+
+mobiscroll.slider('#slider', {
+    theme: 'ios',
+    themeVariant: 'light',
+    onInit: function (event, inst) {
+        var labels = slider.parentNode.querySelectorAll('.mbsc-progress-step-label');
+
+        for (var i = 0; i < labels.length; ++i) {
+            nextWeek[Math.round(labels[i].innerHTML)] = new Date(nextSunday.getFullYear(), nextSunday.getMonth(), nextSunday.getDate() + i); // generate nextWeek object
+            labels[i].innerHTML = dayNames[i];
+        }
+        setText(nextSunday);
+    }
+});
+</script>
+
+<script>
+	var mapbox_access_token=JSON.parse("{{map_token|escapejs}}");
+    console.log(mapbox_access_token);
+
+	mapboxgl.accessToken = mapbox_access_token;
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/dark-v10',
+        center: [-91.85147563427773, 42.76623806202218],
+        zoom: 15,
+        bearing: 27,
+        pitch: 45
+    });
+
+    var chapters = JSON.parse("{{js_data|escapejs}}");
+
+
+
+    console.log(chapters);
+
+    // On every scroll event, check which element is on screen
+    window.onscroll = function () {
+        var chapterNames = Object.keys(chapters);
+        for (var i = 0; i < chapterNames.length; i++) {
+            var chapterName = chapterNames[i];
+            if (isElementOnScreen(chapterName)) {
+                setActiveChapter(chapterName);
+                break;
+            }
+        }
+    };
+
+    var activeChapterName = 'admin_Maize_1_322634.87';
+    function setActiveChapter(chapterName) {
+        if (chapterName === activeChapterName) return;
+
+        map.flyTo(chapters[chapterName]);
+
+        document.getElementById(chapterName).setAttribute('class', 'active');
+        document.getElementById(activeChapterName).setAttribute('class', '');
+
+        activeChapterName = chapterName;
+    }
+
+    function isElementOnScreen(id) {
+        var element = document.getElementById(id);
+        var bounds = element.getBoundingClientRect();
+        return bounds.top < window.innerHeight && bounds.bottom > 0;
+    }
+
+
+
+var draw_cords = {{ draw_cords|safe }};
+
+draw_cords=JSON.parse(draw_cords);
+
+    console.log(draw_cords);
+    console.log(typeof (draw_cords));
+
+
+    map.on('load', function () {
+// Add a data source containing GeoJSON data.
+map.addSource('maine', {
+'type': 'geojson',
+'data': {
+'type': 'Feature',
+'geometry': {
+'type': 'Polygon',
+// These coordinates outline Maine.
+
+'coordinates': draw_cords
+
+}
+}
+});
+
+
+
+// Add a new layer to visualize the polygon.
+map.addLayer({
+'id': 'maine',
+'type': 'fill',
+'source': 'maine', // reference the data source
+'layout': {},
+'paint': {
+'fill-color': 'green', // blue color fill
+'fill-opacity': 0.5
+}
+});
+// Add a black outline around the polygon.
+map.addLayer({
+'id': 'outline',
+'type': 'line',
+'source': 'maine',
+'layout': {},
+'paint': {
+'line-color': '#000',
+'line-width': 1
+}
+});
+});
+
+
+
+</script>
+
+</body>
+</html>

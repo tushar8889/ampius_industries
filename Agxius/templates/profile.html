@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <title>Agxius|Profile</title>
+    <link rel="icon" href="{% static 'ampius-logo.png' %}">
+
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://unpkg.com/elm-pep" rel="stylesheet"></script>
+   <script src="https://unpkg.com/elm-pep"></script>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        * {
+    box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+/* Four equal columns */
+.column1 {
+
+  float:left;
+  padding-top: 10px;
+  width:50%;
+
+}
+
+
+.column2 {
+   padding-top: 50px;
+  overflow:hidden;
+  width:50%;
+  border-radius:40px;
+  optacity:20%;
+
+}
+
+
+.company{
+    margin-top:10px;
+    margin-left:auto;
+    margin-right:auto;
+  width: 75%;
+  font-style: oblique;
+  color: white;
+  font-size:100px;
+
+  }
+
+  .img-rounded{
+  margin-top:10px;
+  width:180px;
+  height:180px;
+  margin-left:5%;
+
+  }
+
+
+ body{
+    height: 100%;
+	width: 100%;
+	background: url("/static/ampius_bg2.png") no-repeat fixed;
+	background-position: center;
+	background-size: cover;
+	position: absolute;
+}
+
+
+.container {
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+#map {
+        width: 80%;
+        height:400px;
+        margin-left:75px;
+        background-color:white;
+        border:2px solid black;
+      }
+
+
+
+
+.form-group{padding-left:10%;
+        padding-right:10%;
+
+}
+
+.btn{
+
+      margin-left: 75%;
+    margin-right: auto%;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    padding-top: 8px;
+    width: 20%;
+    height: 40px;
+    border: none;
+    border-radius: 100px;
+    margin-bottom: 25px;
+    background: rgb(34,139,34);
+
+
+    transition: all .5s ease, top .5s ease .5s, height .5s ease .5s, background-color .5s ease .75s
+}
+
+
+
+.btn-animate {
+    margin-left: 25%;
+    margin-right: auto%;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-align: center;
+    color: rgb(60, 179, 113)
+    padding-top: 8px;
+    width: 50%;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 23px;
+    background: rgb(34,139,34);
+
+
+    transition: all .5s ease, top .5s ease .5s, height .5s ease .5s, background-color .5s ease .75s
+}
+
+.draw-note{
+margin-left:20%;
+margin-right:auto;
+}
+#cords{
+visibility:hidden;
+}
+
+#polygonarea{
+visibility:hidden;
+}
+
+
+.calculation-box {
+visibility:hidden;
+height: 75px;
+width: 150px;
+position: absolute;
+bottom: 40px;
+left:10px;
+background-color: rgba(255, 255, 255, 0.9);
+padding: 15px;
+text-align: center;
+}
+
+ .mb-3{
+ font-size:100px;
+ }
+ .mb-4{
+ font-style: oblique;color: white;
+ }
+
+@media only screen and (max-width: 600px) {
+  body {
+    background: #20C238;
+  }
+  .wrapper {
+
+  overflow:hidden;
+}
+
+    .wrapper div {
+
+       padding: 5px;
+    }
+    .column1 {
+     width:100%;
+    }
+    .column2 {
+    width:100%;
+    padding-top:20px;
+
+    }
+
+    .img-rounded{
+  width:80px;
+  height:80px;
+   margin-top:5%;
+    margin-left:5%;
+    margin-right:auto;
+  }
+
+  .company{
+    margin-top:10px;
+    margin-left:auto;
+    margin-right:auto;
+  width: 90%;
+  font-style: oblique;
+  color: white;
+  font-size:40px;
+}
+ .mb-3{
+ font-size:30px;
+ }
+ .mb-4{
+ font-size:20px;
+ }
+
+
+ #map {
+        width: 80%;
+        height:200px;
+        margin-left:auto;
+        margin-right:auto;
+        background-color:white;
+        border:2px solid black;
+      }
+
+      .btn{
+
+      margin-left: 60%;
+    margin-right: auto%;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: center;
+    color: white;
+    padding-top: 10px;
+    width: 30%;
+    height: 40px;
+    border: none;
+    border-radius: 100px;
+    margin-bottom: 25px;
+    background: rgb(34,139,34);
+
+
+    transition: all .5s ease, top .5s ease .5s, height .5s ease .5s, background-color .5s ease .75s
+}
+
+      .btn-animate {
+    margin-left: 25%;
+    margin-right: auto%;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-align: center;
+    color: rgb(60, 179, 113)
+    padding-top: 8px;
+    width: 50%;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 23px;
+    background: rgb(34,139,34);
+
+
+    transition: all .5s ease, top .5s ease .5s, height .5s ease .5s, background-color .5s ease .75s
+}
+}
+
+
+   </style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="scripts.js"></script>
+<link rel="stylesheet" href="styles.css">
+
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.2/mapbox-gl-draw.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.2/mapbox-gl-draw.css" type="text/css">
+</head>
+<body>
+<div class="row">
+  <div class="column1">
+
+<img src="/static/ampius-logo.png" alt="..." class="img-rounded" >
+        <div class="company">
+
+            <h1 class="mb-3">AGXIUS</h1>
+          <h4 class="mb-4" style="font-style: oblique;color: white;">AMPIUS TECH.INNOVATION</h4>
+        </div>
+
+      {% for i in flen %}
+      <div class="card" style="width: 18rem;">
+
+  <div class="card-body">
+    <h5 class="card-title">{{i}}</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+  </div>
+</div>
+  {% endfor %}
+  </div>
+
+
+
+
+  <div class="column2">
+
+
+<a href="/dash/" class="btn"  role="button" >Dashboard</a>
+<form class="form-profile" action="/profile_data/" method="post" >
+            {% csrf_token %}
+
+  <div class="form-group">
+    <label for="Commodity1">Commodity</label>
+    <select class="form-control custom" name="commodity" id="Commodity1" style="background-color:#4AC948;
+  color: white;">
+      <option>Potato</option>
+      <option>Wheat</option>
+      <option>Maize </option>
+        <option>Forest </option>
+
+    </select>
+  </div>
+
+<!--bing maps-->
+<!--coordinates draw fet-->
+
+
+
+
+
+<!--    datepicker from :-https://gijgo.com/datepicker/example/bootstrap-->
+
+   <div class="form-group">
+    <label for="datepicker">Sowing Date</label>
+<input id="datepicker" width="270" name="sowingdate" style="background-color:#4AC948;color: white;">
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+    </script>
+
+   </div>
+
+
+<div>
+
+    <input type="text" id="cords" name="cords" value="">
+    <input type="text" id="polygonarea" name="polygonarea" value="">
+
+</div>
+
+<!--alert("Success");-->
+<!--    <script>-->
+
+<!--function setGetParameter(){-->
+<!--    var search_word = $("#search").val();-->
+<!--    $.ajax({-->
+
+<!--      type: 'POST',-->
+
+<!--    url: {% url 'view_detail' %},-->
+<!--    data: { 'data': search_word-->
+<!--    },-->
+<!--      success: function(result){-->
+
+<!--      }-->
+<!--    });-->
+<!--}-->
+
+
+<!--function setGetParameter(){-->
+<!--    var search_word = $("#search").val();-->
+<!--    $.ajax({-->
+<!--      type: "POST",-->
+<!--      url: {% url 'view_detail' %},-->
+<!--      data: search_word,-->
+<!--      success: function(result){-->
+
+<!--      }-->
+<!--    });-->
+<!--}-->
+<!--</script>-->
+
+
+<div id="map"></div>
+<div class="calculation-box">
+<p>Draw a polygon using the draw tools.</p>
+<div id="calculated-area" ></div>
+</div>
+
+<script>
+var mapbox_access_token=JSON.parse("{{map_token|escapejs}}");
+console.log(mapbox_access_token);
+
+mapboxgl.accessToken = mapbox_access_token;
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/mapbox/satellite-streets-v11', //hosted style id
+center: [-91.874, 42.76], // starting position
+zoom: 12 // starting zoom
+});
+
+// Add geolocate control to the map.
+
+map.addControl(
+
+new mapboxgl.GeolocateControl({
+
+positionOptions: {
+
+enableHighAccuracy: true
+
+},
+
+trackUserLocation: true
+
+})
+
+);
+
+var draw = new MapboxDraw({
+displayControlsDefault: false,
+controls: {
+polygon: true,
+trash: true
+},
+defaultMode: 'draw_polygon'
+});
+map.addControl(draw);
+
+map.on('draw.create', updateArea);
+map.on('draw.delete', updateArea);
+map.on('draw.update', updateArea);
+
+function updateArea(e) {
+var data = draw.getAll();
+console.log(data);
+
+var cords = JSON.stringify(data);
+document.getElementById("cords").value = cords;
+
+
+
+var area = turf.area(data);
+var rounded_area = Math.round(area * 100) / 100;
+var polygonarea = JSON.stringify(rounded_area);
+document.getElementById("polygonarea").value = polygonarea;
+
+
+var answer = document.getElementById('calculated-area');
+if (data.features.length > 0) {
+var area = turf.area(data);
+// restrict to area to 2 decimal points
+var rounded_area = Math.round(area * 100) / 100;
+
+
+
+
+answer.innerHTML =
+'<p><strong>' +
+rounded_area +
+'</strong></p><p>square meters</p>';
+} else {
+answer.innerHTML = '';
+if (e.type !== 'draw.delete')
+alert('Use the draw tools to draw a polygon!');
+
+
+}
+
+}
+</script>
+
+
+
+<button type="submit" class="btn-animate"  value="Submit">ADD</button>
+
+
+</form>
+</div>
+</div>
+
+</body>
+</html>

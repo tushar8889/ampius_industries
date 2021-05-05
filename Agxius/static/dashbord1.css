@@ -1,0 +1,229 @@
+   .rounded-rect {
+          backdrop-filter: blur(1px);
+        border-radius: 10px;
+        box-shadow: 0 0 50px -25px black;
+
+    }
+
+    .flex-center {
+        position: absolute;
+        display: flex;
+<!--        justify-content: center;-->
+        align-items: center;
+    }
+
+    .flex-center.left {
+        left: 0px;
+    }
+
+    .flex-center.right {
+        right: 0px;
+    }
+
+<!--    .btn-animate{-->
+
+<!--    border-radius: 100px;-->
+<!--        margin-left:150px;-->
+<!--          z-index: 1;-->
+<!--        position: relative;-->
+<!--  width:100%;-->
+<!--  height:80px;-->
+<!--font-family: Arial, Helvetica, sans-serif;-->
+<!--        font-size: 40px;-->
+<!--  overflow: visible;-->
+<!--  background: green;-->
+<!--  color: white;-->
+
+<!--    }-->
+
+
+.btn-logout{
+
+  background: green;
+  color: white;
+    font-size: 16px;
+    border: 0.3em solid var(--c);
+    border-radius: 0.5em;
+    width: 12em;
+    height: 3em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: sans-serif;
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 3em;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+    margin-left:20%;
+    margin-right:10%;
+    margin-top:10px;
+    border-radius: 100px;
+
+}
+
+.btn-animate{
+
+  background: green;
+  color: white;
+    font-size: 16px;
+    border: 0.3em solid var(--c);
+    border-radius: 0.5em;
+    width: 12em;
+    height: 3em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: sans-serif;
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 3em;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+    margin-left:20%;
+    margin-right:10%;
+    margin-top:10px;
+
+    border-radius: 100px;
+
+}
+
+btn-animate:hover {
+    background: white;
+  color: green;
+}
+
+nav ul li:hover span {
+    transform: translateY(0) scale(2);
+}
+
+
+    .sidebar-content {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 32px;
+        color: white;
+
+
+    }
+
+
+/* width */
+::-webkit-scrollbar {
+width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+background:black;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: green;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  width:100%;
+  height:440px;
+  margin-top:20%;
+  scroll-behavior: smooth;
+  overflow: auto;
+}
+
+
+    .sidebar-toggle {
+        position: absolute;
+        width: 1.3em;
+        height: 1.3em;
+        overflow: visible;
+        000display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sidebar-toggle.left {
+        right: -1.5em;
+    }
+
+    .sidebar-toggle.right {
+        left: -1.5em;
+    }
+
+    .sidebar-toggle:hover {
+        color: #0aa1cf;
+        cursor: pointer;
+    }
+
+    .sidebar {
+        margin-top:5%;
+        z-index: 1;
+        width: 600px;
+        height: auto;
+
+    }
+
+    .sidebar1{
+    z-index: 1;
+        width: 400px;
+        height: 10%;
+
+
+        z-index: 1;
+        width: 200px;
+        height: 20%;
+
+    }
+
+    /*
+  The sidebar styling has them "expanded" by default, we use CSS transforms to push them offscreen
+  The toggleSidebar() function removes this class from the element in order to expand it.
+*/
+    .left.collapsed {
+        transform: translateX(-295px);
+    }
+
+    .right.collapsed {
+        transform: translateX(295px);
+    }
+
+    .farm-data{
+
+    height:200px;
+    margin-left:10px;
+    }
+
+.body-content {
+border-radius: 10px;
+margin:20px;
+    width: 100%;
+    height:100px;
+background-color:#1c1c1c;
+  float:centre;
+}
+
+.left-menu {
+
+margin-top:20px;
+
+    float: left;
+    width:50%;
+    height:100%;
+
+
+}
+
+
+
+
+.right-view {
+
+margin-top:20px;
+    width:50%;
+    float: left;
+
+    height:100%;
+}
